@@ -13,22 +13,32 @@ class HeroWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        margin: const EdgeInsets.all(margin),
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Text('Flutter',
-              style: GoogleFonts.spaceGrotesk(
-                foreground: Paint()..shader = linearGradient,
-                fontSize: 80,
-                height: 0.8,
-                fontWeight: FontWeight.w800,
-              )),
-          Text('Sample App',
-              style: GoogleFonts.spaceGrotesk(
-                fontSize: 80,
-                height: 0.8,
-                fontWeight: FontWeight.w600,
-              )),
-        ]));
+    return Column(children: [
+      Container(
+        margin: const EdgeInsets.only(bottom: margin),
+        child: Image.asset('images/logo.png', width: 24),
+      ),
+      Expanded(
+          child: Container(
+              margin: const EdgeInsets.all(margin),
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text('Flutter',
+                        style: GoogleFonts.spaceGrotesk(
+                          foreground: Paint()..shader = linearGradient,
+                          fontSize: 80,
+                          height: 0.8,
+                          fontWeight: FontWeight.w800,
+                        )),
+                    Text('Sample App',
+                        style: GoogleFonts.spaceGrotesk(
+                          fontSize: 80,
+                          height: 0.8,
+                          fontWeight: FontWeight.w600,
+                        )),
+                  ])))
+    ]);
   }
 }

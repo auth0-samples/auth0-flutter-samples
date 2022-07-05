@@ -56,21 +56,21 @@ class _ExampleAppState extends State<ExampleApp> {
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Container(
-                        margin: const EdgeInsets.only(bottom: padding),
-                        child: Image.asset('images/logo.png', width: 24),
-                      ),
                       Expanded(
                           child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                             _user != null
                                 ? UserWidget(user: _user as UserProfile)
-                                : const HeroWidget()
+                                : const Expanded(child: HeroWidget())
                           ])),
                       _user != null
                           ? ElevatedButton(
                               onPressed: logout,
+                              style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStateProperty.all<Color>(
+                                        Colors.black),
+                              ),
                               child: const Text('Logout'),
                             )
                           : ElevatedButton(
