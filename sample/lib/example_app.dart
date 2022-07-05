@@ -47,45 +47,45 @@ class _ExampleAppState extends State<ExampleApp> {
   Widget build(final BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-          appBar: AppBar(title: const Text('Auth0 Example')),
           body: CustomScrollView(
-            slivers: <Widget>[
-              SliverFillRemaining(
-                  child: Padding(
-                padding: const EdgeInsets.all(padding),
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Expanded(
-                          child: Column(
-                              children: [
-                            _user != null
-                                ? UserWidget(user: _user as UserProfile)
-                                : const Expanded(child: HeroWidget())
-                          ])),
-                      _user != null
-                          ? ElevatedButton(
-                              onPressed: logout,
-                              style: ButtonStyle(
-                                backgroundColor:
-                                    MaterialStateProperty.all<Color>(
-                                        Colors.black),
-                              ),
-                              child: const Text('Logout'),
-                            )
-                          : ElevatedButton(
-                              onPressed: login,
-                              style: ButtonStyle(
-                                backgroundColor:
-                                    MaterialStateProperty.all<Color>(
-                                        Colors.black),
-                              ),
-                              child: const Text('Login'),
-                            )
-                    ]),
-              )),
-            ],
+        slivers: <Widget>[
+          SliverFillRemaining(
+              child: Padding(
+            padding: const EdgeInsets.only(
+                top: padding,
+                bottom: padding,
+                left: padding / 2,
+                right: padding / 2),
+            child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Expanded(
+                      child: Column(children: [
+                    _user != null
+                        ? UserWidget(user: _user as UserProfile)
+                        : const Expanded(child: HeroWidget())
+                  ])),
+                  _user != null
+                      ? ElevatedButton(
+                          onPressed: logout,
+                          style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStateProperty.all<Color>(Colors.black),
+                          ),
+                          child: const Text('Logout'),
+                        )
+                      : ElevatedButton(
+                          onPressed: login,
+                          style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStateProperty.all<Color>(Colors.black),
+                          ),
+                          child: const Text('Login'),
+                        )
+                ]),
           )),
+        ],
+      )),
     );
   }
 }
