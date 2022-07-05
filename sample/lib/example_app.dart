@@ -2,7 +2,9 @@ import 'package:auth0_flutter/auth0_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-const double padding = 24.0;
+import 'constants.dart';
+import 'hero.dart';
+import 'user.dart';
 
 class ExampleApp extends StatefulWidget {
   const ExampleApp({final Key? key}) : super(key: key);
@@ -12,12 +14,33 @@ class ExampleApp extends StatefulWidget {
 }
 
 class _ExampleAppState extends State<ExampleApp> {
+  UserProfile? _user;
+
   late Auth0 auth0;
+  late WebAuthentication webAuth;
 
   @override
   void initState() {
     super.initState();
     auth0 = Auth0(dotenv.env['AUTH0_DOMAIN']!, dotenv.env['AUTH0_CLIENT_ID']!);
+    webAuth = auth0.webAuthentication();
+  }
+
+  Future<void> login() async {
+    var credentials =
+        await webAuth.login(scheme: dotenv.env['AUTH0_CUSTOM_SCHEME']);
+
+    setState(() {
+      _user = credentials.user;
+    });
+  }
+
+  Future<void> logout() async {
+    await webAuth.logout(scheme: dotenv.env['AUTH0_CUSTOM_SCHEME']);
+
+    setState(() {
+      _user = null;
+    });
   }
 
   @override
@@ -27,16 +50,38 @@ class _ExampleAppState extends State<ExampleApp> {
           appBar: AppBar(title: const Text('Auth0 Example')),
           body: CustomScrollView(
             slivers: <Widget>[
-              SliverToBoxAdapter(
+              SliverFillRemaining(
                   child: Padding(
                 padding: const EdgeInsets.all(padding),
                 child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      ElevatedButton(
-                        onPressed: () {},
-                        child: const Text('Login'),
+                      Container(
+                        margin: const EdgeInsets.only(bottom: padding),
+                        child: Image.asset('images/logo.png', width: 24),
                       ),
+                      Expanded(
+                          child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                            _user != null
+                                ? UserWidget(user: _user as UserProfile)
+                                : const HeroWidget()
+                          ])),
+                      _user != null
+                          ? ElevatedButton(
+                              onPressed: logout,
+                              child: const Text('Logout'),
+                            )
+                          : ElevatedButton(
+                              onPressed: login,
+                              style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStateProperty.all<Color>(
+                                        Colors.black),
+                              ),
+                              child: const Text('Login'),
+                            )
                     ]),
               )),
             ],
