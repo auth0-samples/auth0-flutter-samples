@@ -27,13 +27,7 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
-  auth0_flutter:
-    # When depending on this package from a real application you should use:
-    #   auth0_flutter: ^x.y.z
-    # See https://dart.dev/tools/pub/dependencies#version-constraints
-    # The example app is bundled with the plugin so we use a path dependency on
-    # the parent directory to use the current plugin's version.
-    path: ../../auth0-flutter/auth0_flutter
+  auth0_flutter: ^1.0.0-beta.0
   flutter:
     sdk: flutter
   flutter_dotenv: ^5.0.2
