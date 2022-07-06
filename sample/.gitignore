@@ -47,3 +47,4 @@ app.*.map.json
 /android/app/release
 
 .env
+android/app/src/main/res/values/strings.xml
