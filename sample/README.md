@@ -41,11 +41,7 @@ In the sample, we are using values referenced from `strings.xml`. Rename `string
 
 ### iOS
 
-You need to register your bundle identifier as a custom URL scheme so the callback and logout URLs can reach your app.
-
-In Xcode, go to the **Info** tab of your app target settings. In the **URL Types** section, click the **＋** button to add a new entry. There, enter `auth0` into the **Identifier** field and `$(PRODUCT_BUNDLE_IDENTIFIER)` into the **URL Schemes** field.
-
-> ⚠️ In the sample project, the above configuration is already present and you shouldn't need to do any specific configuration for iOS.
+The sample has already configured the required **Url Types**  to ensure the callback and logout URLs can reach the application, so there is nothing to configure in order to run the sample on iOS.
 
 ## Issue Reporting
 
