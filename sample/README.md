@@ -33,19 +33,8 @@ AUTH0_CLIENT_ID={CLIENT_ID}
 ```
 
 ### Android
-The SDK requires manifest placeholders. Auth0 uses placeholders internally to define an `intent-filter`, which captures the authentication callback URL. You must set the Auth0 tenant domain and the callback URL scheme in the `defaultConfig` of the `app/build.gradle` file.
 
-```
-defaultConfig {
-    // ...
-    manifestPlaceholders['auth0Domain'] = "@string/com_auth0_domain"
-    manifestPlaceholders['auth0Scheme'] = "@string/com_auth0_scheme"
-}
-```
-
-You do not need to declare a specific `intent-filter` for your activity, because you have defined the manifest placeholders with your Auth0 **Domain** and **Scheme** values and the library will handle the redirection for you.
-
-In the sample, we are using values referenced from `strings.xml`. Ensure to set these to the correct value.
+In the sample, we are using values referenced from `strings.xml`. Rename `strings.xml.example` to `strings.xml` and ensure to set the correct values.
 
 - `com_auth0_domain`: The domain of your Auth0 tenant. Generally, you can find this in the Auth0 Dashboard under your Application's Settings in the Domain field. If you are using a custom domain, you should set this to the value of your custom domain instead.
 - `com_auth0_scheme`: The scheme to use. Can be a custom scheme, or `https` if you want to use [Android App Links](https://auth0.com/docs/applications/enable-android-app-links). You can read more about setting this value in the [Auth0.Android SDK README](https://github.com/auth0/Auth0.Android#a-note-about-app-deep-linking).
