@@ -11,17 +11,17 @@ packages:
   auth0_flutter:
     dependency: "direct main"
     description:
-      path: "../../auth0-flutter/auth0_flutter"
-      relative: true
-    source: path
-    version: "1.0.0-beta.0"
+      name: auth0_flutter
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0-beta.1"
   auth0_flutter_platform_interface:
     dependency: transitive
     description:
-      path: "../../auth0-flutter/auth0_flutter_platform_interface"
-      relative: true
-    source: path
-    version: "1.0.0-beta.0"
+      name: auth0_flutter_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0-beta.1"
   boolean_selector:
     dependency: transitive
     description:

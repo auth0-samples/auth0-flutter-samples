@@ -1,8 +1,7 @@
-import 'package:auth0_flutter/auth0_flutter.dart';
 import 'package:flutter/material.dart';
 
 class UserWidget extends StatelessWidget {
-  UserProfile user;
+  dynamic user;
   UserWidget({required final this.user, final Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {

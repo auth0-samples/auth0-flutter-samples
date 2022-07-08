@@ -14,29 +14,27 @@ class ExampleApp extends StatefulWidget {
 }
 
 class _ExampleAppState extends State<ExampleApp> {
-  UserProfile? _user;
+  dynamic _user;
 
   late Auth0 auth0;
-  late WebAuthentication webAuth;
 
   @override
   void initState() {
     super.initState();
     auth0 = Auth0(dotenv.env['AUTH0_DOMAIN']!, dotenv.env['AUTH0_CLIENT_ID']!);
-    webAuth = auth0.webAuthentication();
   }
 
   Future<void> login() async {
     var credentials =
-        await webAuth.login(scheme: dotenv.env['AUTH0_CUSTOM_SCHEME']);
+        await auth0.webAuthentication.login(scheme: dotenv.env['AUTH0_CUSTOM_SCHEME']);
 
     setState(() {
-      _user = credentials.user;
+      _user = credentials.userProfile;
     });
   }
 
   Future<void> logout() async {
-    await webAuth.logout(scheme: dotenv.env['AUTH0_CUSTOM_SCHEME']);
+    await auth0.webAuthentication.logout(scheme: dotenv.env['AUTH0_CUSTOM_SCHEME']);
 
     setState(() {
       _user = null;
@@ -57,7 +55,7 @@ class _ExampleAppState extends State<ExampleApp> {
           Expanded(
               child: Column(children: [
             _user != null
-                ? UserWidget(user: _user as UserProfile)
+                ? UserWidget(user: _user)
                 : const Expanded(child: HeroWidget())
           ])),
           _user != null
