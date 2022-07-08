@@ -1,0 +1,43 @@
+PODS:
+  - Auth0 (2.0.0):
+    - JWTDecode (~> 2.0)
+    - SimpleKeychain
+  - auth0_flutter (1.0.0-beta.0):
+    - Auth0 (~> 2.0)
+    - Flutter
+  - Flutter (1.0.0)
+  - JWTDecode (2.6.3)
+  - path_provider_ios (0.0.1):
+    - Flutter
+  - SimpleKeychain (0.12.5)
+
+DEPENDENCIES:
+  - auth0_flutter (from `.symlinks/plugins/auth0_flutter/ios`)
+  - Flutter (from `Flutter`)
+  - path_provider_ios (from `.symlinks/plugins/path_provider_ios/ios`)
+
+SPEC REPOS:
+  trunk:
+    - Auth0
+    - JWTDecode
+    - SimpleKeychain
+
+EXTERNAL SOURCES:
+  auth0_flutter:
+    :path: ".symlinks/plugins/auth0_flutter/ios"
+  Flutter:
+    :path: Flutter
+  path_provider_ios:
+    :path: ".symlinks/plugins/path_provider_ios/ios"
+
+SPEC CHECKSUMS:
+  Auth0: 3a2b817a6129c0f6d5ab9f7ea03ecac11077b0b1
+  auth0_flutter: 4ae9187dc89a8754b9e26a6f4821a58ab1e45903
+  Flutter: 50d75fe2f02b26cc09d224853bb45737f8b3214a
+  JWTDecode: 33e5e26e5ddbd21b2065820894c08fef0cad9509
+  path_provider_ios: 14f3d2fd28c4fdb42f44e0f751d12861c43cee02
+  SimpleKeychain: 8193a9e40967eccac933c1fde82de46c07a5ae26
+
+PODFILE CHECKSUM: 9e4599a9566173f46a1d584f9ffe593910af99e1
+
+COCOAPODS: 1.11.2
