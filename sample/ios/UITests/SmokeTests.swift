@@ -11,7 +11,6 @@ class SmokeTests: XCTestCase {
     override func setUp() {
         continueAfterFailure = false
         let app = XCUIApplication()
-        app.launchArguments = ["SmokeTests"]
         app.launchEnvironment = ProcessInfo.processInfo.environment
         app.launch()
     }
