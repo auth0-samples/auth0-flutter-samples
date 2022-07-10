@@ -14,7 +14,7 @@ class ExampleApp extends StatefulWidget {
 }
 
 class _ExampleAppState extends State<ExampleApp> {
-  dynamic _user;
+  dynamic? _user;
 
   late Auth0 auth0;
 
