@@ -15,7 +15,7 @@ Go to the settings page of your [Auth0 application](https://manage.auth0.com/#/a
 **Android**
 
 ```
-SCHEME://YOUR_AUTH0_DOMAIN/android/YOUR_PACKAGE_ID/callback
+SCHEME://YOUR_AUTH0_DOMAIN/android/YOUR_PACKAGE_NAME/callback
 ```
 
 **iOS**
