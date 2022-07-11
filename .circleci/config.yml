@@ -1,0 +1,26 @@
+version: 2.1
+orbs:
+  flutter: circleci/flutter@1
+parameters:
+  flutter_version:
+    type: string
+    default: 3.0.4
+jobs:
+  analyze:
+    docker:
+      - image: cimg/base:current
+    steps:
+      - checkout
+      - flutter/install_sdk_and_pub:
+          app-dir: ./sample
+          flutter_version: << pipeline.parameters.flutter_version >>
+      - run:
+          name: Analyze package
+          command: |
+            cp .env.example .env
+            flutter analyze
+          working_directory: ./sample
+workflows:
+  build_and_test:
+    jobs:
+      - analyze
