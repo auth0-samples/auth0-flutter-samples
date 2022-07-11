@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class UserWidget extends StatelessWidget {
-  dynamic user;
-  UserWidget({required final this.user, final Key? key}) : super(key: key);
+  final dynamic user;
+  const UserWidget({required this.user, final Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     // id, name, email, email verified, updated_at
@@ -31,12 +31,11 @@ class UserWidget extends StatelessWidget {
 }
 
 class UserEntryWidget extends StatelessWidget {
-  String propertyName;
-  String? propertyValue;
-  UserEntryWidget(
-      {required final this.propertyName,
-      required final this.propertyValue,
-      final Key? key})
+  final String propertyName;
+  final String? propertyValue;
+
+  const UserEntryWidget(
+      {required this.propertyName, required this.propertyValue, final Key? key})
       : super(key: key);
 
   @override
