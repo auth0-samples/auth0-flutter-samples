@@ -51,7 +51,7 @@ To run the project, use the [Flutter CLI's](https://docs.flutter.dev/reference/f
 flutter run
 ```
 
-Select a running emulator or device to run the application on the corresponding device.
+Ensure you have at least one emulator running. If you have multiple running, the CLI will prompt you to select the one to run the application on.
 
 ## Compile the sample
 
