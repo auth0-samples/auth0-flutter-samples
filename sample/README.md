@@ -43,6 +43,25 @@ In the sample, we are using values referenced from `strings.xml`. Rename `string
 
 The sample has already configured the required **Url Types**  to ensure the callback and logout URLs can reach the application, so there is nothing to configure in order to run the sample on iOS.
 
+## Run the sample
+
+To run the project, use the [Flutter CLI's](https://docs.flutter.dev/reference/flutter-cli) `run` command:
+
+```
+flutter run
+```
+
+Select a running emulator or device to run the application on the corresponding device.
+
+## Compile the sample
+
+To compile the project, use the [Flutter CLI's](https://docs.flutter.dev/reference/flutter-cli) `build` command, including the platform you want to target.
+
+```
+flutter build apk
+flutter build ios
+```
+
 ## Issue Reporting
 
 For general support or usage questions, use the [Auth0 Community](https://community.auth0.com/c/sdks/5) forums or raise a [support ticket](https://support.auth0.com/). Only [raise an issue](https://github.com/auth0-samples/auth0-flutter-samples/issues) if you have found a bug or want to request a feature.
