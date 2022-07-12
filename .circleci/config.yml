@@ -44,12 +44,12 @@ jobs:
           platform: iOS
           device: << parameters.ios_simulator >>
       - flutter/install_sdk_and_pub:
-          app-dir: ./auth0_flutter/example
+          app-dir: ./sample
           flutter_version: << pipeline.parameters.flutter_version >>
       - flutter/install_ios_gem:
-          app-dir: ./auth0_flutter/example
+          app-dir: ./sample
       - flutter/install_ios_pod:
-          app-dir: ./auth0_flutter/example
+          app-dir: ./sample
       - run:
           name: Run iOS tests
           command: |
