@@ -70,6 +70,3 @@ workflows:
       - analyze_and_test
       - test_ios:
           ios_simulator: iPhone 13
-          requires:
-            - test_flutter_package
-
