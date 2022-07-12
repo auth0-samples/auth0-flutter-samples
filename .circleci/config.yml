@@ -6,7 +6,7 @@ parameters:
     type: string
     default: 3.0.4
 jobs:
-  analyze:
+  analyze_and_test:
     docker:
       - image: cimg/base:current
     steps:
@@ -29,4 +29,4 @@ jobs:
 workflows:
   build_and_test:
     jobs:
-      - analyze
+      - analyze_and_test
