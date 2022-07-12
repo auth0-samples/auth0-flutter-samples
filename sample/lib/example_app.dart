@@ -7,7 +7,8 @@ import 'hero.dart';
 import 'user.dart';
 
 class ExampleApp extends StatefulWidget {
-  const ExampleApp({final Key? key}) : super(key: key);
+  final Auth0? auth0;
+  const ExampleApp({this.auth0, final Key? key}) : super(key: key);
 
   @override
   State<ExampleApp> createState() => _ExampleAppState();
@@ -21,12 +22,13 @@ class _ExampleAppState extends State<ExampleApp> {
   @override
   void initState() {
     super.initState();
-    auth0 = Auth0(dotenv.env['AUTH0_DOMAIN']!, dotenv.env['AUTH0_CLIENT_ID']!);
+    auth0 = widget.auth0 ??
+        Auth0(dotenv.env['AUTH0_DOMAIN']!, dotenv.env['AUTH0_CLIENT_ID']!);
   }
 
   Future<void> login() async {
-    var credentials =
-        await auth0.webAuthentication.login(scheme: dotenv.env['AUTH0_CUSTOM_SCHEME']);
+    var credentials = await auth0.webAuthentication
+        .login(scheme: dotenv.env['AUTH0_CUSTOM_SCHEME']);
 
     setState(() {
       _user = credentials.userProfile;
@@ -34,7 +36,8 @@ class _ExampleAppState extends State<ExampleApp> {
   }
 
   Future<void> logout() async {
-    await auth0.webAuthentication.logout(scheme: dotenv.env['AUTH0_CUSTOM_SCHEME']);
+    await auth0.webAuthentication
+        .logout(scheme: dotenv.env['AUTH0_CUSTOM_SCHEME']);
 
     setState(() {
       _user = null;
@@ -47,10 +50,11 @@ class _ExampleAppState extends State<ExampleApp> {
       home: Scaffold(
           body: Padding(
         padding: const EdgeInsets.only(
-            top: padding,
-            bottom: padding,
-            left: padding / 2,
-            right: padding / 2,),
+          top: padding,
+          bottom: padding,
+          left: padding / 2,
+          right: padding / 2,
+        ),
         child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
           Expanded(
               child: Column(children: [
