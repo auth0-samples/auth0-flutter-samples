@@ -15,10 +15,16 @@ jobs:
           app-dir: ./sample
           flutter_version: << pipeline.parameters.flutter_version >>
       - run:
+          name: Prepare Environment Variables
+          command: cp .env.example .env
+          working_directory: ./sample
+      - run:
           name: Analyze package
-          command: |
-            cp .env.example .env
-            flutter analyze
+          command: flutter analyze
+          working_directory: ./sample
+      - run:
+          name: Tests
+          command: flutter test
           working_directory: ./sample
 workflows:
   build_and_test:
