@@ -1,5 +1,7 @@
 # Auth0 Flutter Samples
 
+This is the sample application for the [Auth0 Flutter Quickstart](https://auth0.com/docs/quickstart/native/flutter) using the [auth0_flutter](https://github.com/auth0/auth0_flutter) SDK. The sample source code can be found in the [Sample directory](sample).
+
 ## Issue Reporting
 
 For general support or usage questions, use the [Auth0 Community](https://community.auth0.com/c/sdks/5) forums or raise a [support ticket](https://support.auth0.com/). Only [raise an issue](https://github.com/auth0/auth0-flutter-samples/issues) if you have found a bug or want to request a feature.
