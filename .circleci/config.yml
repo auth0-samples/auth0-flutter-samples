@@ -20,7 +20,26 @@ jobs:
             cp .env.example .env
             flutter analyze
           working_directory: ./sample
+      - persist_to_workspace:
+          # Must be an absolute path, or relative path from working_directory. This is a directory on the container which is
+          # taken to be the root directory of the workspace.
+          root: workspace
+          # Must be relative path from root
+          paths:
+            - echo-output
+  test:
+    docker:
+      - image: cimg/base:current
+    steps:
+      - attach_workspace:
+          # Must be absolute path or relative path from working_directory
+          at: workspace
+       - run: |
+          ls ./
 workflows:
   build_and_test:
     jobs:
       - analyze
+      - test
+        requires:
+          - analyze
