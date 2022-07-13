@@ -31,7 +31,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "5C84DBD72879193000E317DB"
-            BuildableName = "FlutterSampleUITests.xctest"
+            BuildableName = "RunnerUITests.xctest"
             BlueprintName = "RunnerUITests"
             ReferencedContainer = "container:Runner.xcodeproj">
          </BuildableReference>
@@ -54,7 +54,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "5C84DBD72879193000E317DB"
-               BuildableName = "FlutterSampleUITests.xctest"
+               BuildableName = "RunnerUITests.xctest"
                BlueprintName = "RunnerUITests"
                ReferencedContainer = "container:Runner.xcodeproj">
             </BuildableReference>
