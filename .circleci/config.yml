@@ -20,7 +20,9 @@ jobs:
             cp .env.example .env
             flutter analyze
           working_directory: ./sample
-      - run: echo "Hello, world!" > workspace/build
+      - run: mkdir -p workspace
+      - run: mkdir -p workspace/build
+      - run: echo "Hello, world!" > workspace/build/test.txt
       - persist_to_workspace:
           # Must be an absolute path, or relative path from working_directory. This is a directory on the container which is
           # taken to be the root directory of the workspace.
@@ -36,6 +38,8 @@ jobs:
           # Must be absolute path or relative path from working_directory
           at: workspace
       - run: ls workspace
+      - run: ls workspace/build
+      - run: cat workspace/build/test.txt
 workflows:
   build_and_test:
     jobs:
