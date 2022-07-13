@@ -40,6 +40,6 @@ workflows:
   build_and_test:
     jobs:
       - analyze
-      - test
+      - test:
         requires:
           - analyze
