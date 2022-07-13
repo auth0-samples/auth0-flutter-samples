@@ -41,5 +41,5 @@ workflows:
     jobs:
       - analyze
       - test:
-        requires:
-          - analyze
+          requires:
+            - analyze
