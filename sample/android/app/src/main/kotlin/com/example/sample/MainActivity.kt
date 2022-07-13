@@ -1,4 +1,4 @@
-package com.example.sample
+package com.auth0.sample
 
 import io.flutter.embedding.android.FlutterActivity
 
