@@ -68,3 +68,5 @@ workflows:
       - analyze_and_test
       - test_ios:
           ios_simulator: iPhone 13
+          requires:
+            - analyze_and_test
