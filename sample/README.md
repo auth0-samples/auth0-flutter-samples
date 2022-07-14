@@ -83,4 +83,4 @@ Auth0 helps you to:
 
 ## License
 
-This project is licensed under the Apache license. See the [LICENSE](../LICENSE) file for more information.
+This project is licensed under Apache License 2.0. See the [LICENSE](../LICENSE) file for more information.
