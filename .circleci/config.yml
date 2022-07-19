@@ -14,9 +14,9 @@ orbs:
               name: Prepare Environment Configuration
               command: |
                 cp .env.example .env
-                sed -i "s/YOUR_AUTH0_DOMAIN/$AUTH0_DOMAIN/" .env
-                sed -i "s/YOUR_AUTH0_CLIENT_ID/$AUTH0_CLIENT_ID/" .env
-                sed -i "s/YOUR_AUTH0_CUSTOM_SCHEME/$AUTH0_CUSTOM_SCHEME/" .env
+                sed -i "s/DOMAIN/$AUTH0_DOMAIN/" .env
+                sed -i "s/CLIENT_ID/$AUTH0_CLIENT_ID/" .env
+                sed -i "s/# AUTH0_CUSTOM_SCHEME=/AUTH0_CUSTOM_SCHEME=demo/" .env
                 mv android/app/src/main/res/values/strings.xml.example android/app/src/main/res/values/strings.xml
                 sed -i "s/YOUR_AUTH0_DOMAIN/$AUTH0_DOMAIN/" android/app/src/main/res/values/strings.xml
               working_directory: ./sample
