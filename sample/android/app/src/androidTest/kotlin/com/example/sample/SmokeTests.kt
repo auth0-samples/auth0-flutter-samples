@@ -24,7 +24,7 @@ class SmokeTest {
     private val LOGIN_BUTTON = "Login"
     private val LOGOUT_BUTTON = "Logout"
     private val UL_BUTTON = "Log In"
-    private val TIMEOUT = 10000L
+    private val TIMEOUT = 30000L
 
     init {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
