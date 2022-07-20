@@ -18,7 +18,7 @@ import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
 class SmokeTest {
-
+    private var externalsDir: File? = null
     private val device: UiDevice
     private val PACKAGE_NAME = "com.auth0.sample"
     private val LOGIN_BUTTON = "Login"
@@ -46,6 +46,7 @@ class SmokeTest {
             addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
         }
         context.startActivity(intent)
+        externalsDir = Environment.getExternalStoragePublicDirectory(DIRECTORY_PICTURES);
 
         // Wait for the app to appear
         device.wait(Until.hasObject(By.pkg(PACKAGE_NAME).depth(0)), TIMEOUT)
@@ -56,6 +57,11 @@ class SmokeTest {
         // Start login
         val loginButton = By.clazz(Button::class.qualifiedName).descContains(LOGIN_BUTTON)
         device.wait(Until.hasObject(loginButton), TIMEOUT)
+
+        if (externalsDir != null) {
+            device.takeScreenshot(File(externalsDir?.absolutePath, "test0.png"));
+        }
+
         device.findObject(loginButton).click()
 
         // Fill login form
@@ -67,12 +73,21 @@ class SmokeTest {
         emailInput.text = BuildConfig.USER_EMAIL
         val passwordInput = device.findObjects(textInputs).last()
         passwordInput.text = BuildConfig.USER_PASSWORD
+
+        if (externalsDir != null) {
+            device.takeScreenshot(File(externalsDir?.absolutePath, "test1.png"));
+        }
+
         device.pressEnter()
         device.findObject(ulButton).click()
 
         // Logout
         val logoutButton = By.clazz(Button::class.qualifiedName).descContains(LOGOUT_BUTTON)
         device.wait(Until.hasObject(logoutButton), TIMEOUT)
+
+        if (externalsDir != null) {
+            device.takeScreenshot(File(externalsDir?.absolutePath, "test2.png"));
+        }
         device.findObject(logoutButton).click()
         device.wait(Until.hasObject(loginButton), TIMEOUT)
         assertThat(device.findObject(loginButton), notNullValue())

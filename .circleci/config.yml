@@ -26,6 +26,9 @@ orbs:
           android_simulator:
             type: string
         steps:
+          - run:
+              name: Create screenshots artifact directory
+              command: mkdir android-screenshots
           - android/accept-licenses
           - android/create-avd:
               avd-name: auth0_sample_avd
@@ -40,9 +43,18 @@ orbs:
                 - run:
                     name: Disable Chrome welcome prompt
                     command: adb shell 'echo "chrome --disable-fre --no-default-browser-check --no-first-run" > /data/local/tmp/chrome-command-line'
+                - run:
+                    name: Enable ADB Root
+                    command: adb root
           - android/run-tests:
               max-tries: 1
               working-directory: ./sample/android
+           - run:
+              name: Copy screenshort from device
+              command: adb pull /sdcard/Pictures android-screenshots
+              when: always
+          - store_artifacts:
+              path: android-screenshots/Pictures
 parameters:
   flutter_version:
     type: string
