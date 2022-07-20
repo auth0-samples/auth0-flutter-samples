@@ -49,7 +49,7 @@ orbs:
           - android/run-tests:
               max-tries: 1
               working-directory: ./sample/android
-           - run:
+          - run:
               name: Copy screenshort from device
               command: adb pull /sdcard/Pictures android-screenshots
               when: always
