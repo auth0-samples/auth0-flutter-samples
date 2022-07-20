@@ -81,10 +81,8 @@ jobs:
     parameters:
         android_simulator:
           type: string
-    executor:
-      name: android/android-machine
-      resource-class: xlarge
-      tag: 2021.10.1
+    macos:
+      xcode: '13.0.0'
     steps:
       - checkout
       - flutter/install_sdk_and_pub:
