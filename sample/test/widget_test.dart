@@ -6,10 +6,8 @@
 // tree, read text, and verify that the values of widget properties are correct.
 
 import 'package:auth0_flutter/auth0_flutter.dart';
-import 'package:auth0_flutter/src/web_authentication.dart';
 // Needs to be exported from auth0_flutter
 // ignore: depend_on_referenced_packages
-import 'package:auth0_flutter_platform_interface/src/credentials.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
@@ -28,7 +26,7 @@ AUTH0_CLIENT_ID=bar
 
   testWidgets('can execute login flow',
       (WidgetTester tester) async {
-    when(mocked.webAuthentication).thenReturn(mockedWebAuth);
+    when(mocked.webAuthentication()).thenReturn(mockedWebAuth);
     when(mockedWebAuth.login(
       audience: anyNamed('audience'),
       scheme: anyNamed('scheme'),
