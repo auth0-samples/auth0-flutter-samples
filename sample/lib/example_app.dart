@@ -15,7 +15,7 @@ class ExampleApp extends StatefulWidget {
 }
 
 class _ExampleAppState extends State<ExampleApp> {
-  dynamic _user;
+  UserProfile? _user;
 
   late Auth0 auth0;
 
@@ -27,16 +27,18 @@ class _ExampleAppState extends State<ExampleApp> {
   }
 
   Future<void> login() async {
-    var credentials = await auth0.webAuthentication
+    var credentials = await auth0
+        .webAuthentication()
         .login(scheme: dotenv.env['AUTH0_CUSTOM_SCHEME']);
 
     setState(() {
-      _user = credentials.userProfile;
+      _user = credentials.user;
     });
   }
 
   Future<void> logout() async {
-    await auth0.webAuthentication
+    await auth0
+        .webAuthentication()
         .logout(scheme: dotenv.env['AUTH0_CUSTOM_SCHEME']);
 
     setState(() {
