@@ -29,9 +29,6 @@ orbs:
           android_simulator:
             type: string
         steps:
-          - run:
-              name: Create screenshots artifact directory
-              command: mkdir android-screenshots
           - android/create-avd:
               avd-name: auth0_sample_avd
               system-image: << parameters.android_simulator >>
@@ -52,12 +49,6 @@ orbs:
           - android/run-tests:
               max-tries: 1
               working-directory: ./sample/android
-          - run:
-              name: Copy screenshots
-              command: adb pull /storage/emulated/0/Android/data/com.auth0.sample/files/Pictures android-screenshots
-              when: always
-          - store_artifacts:
-              path: android-screenshots/Pictures
 parameters:
   flutter_version:
     type: string

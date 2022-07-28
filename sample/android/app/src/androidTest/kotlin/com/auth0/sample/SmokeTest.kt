@@ -1,10 +1,8 @@
-package com.auth0.sample
+package com.auth0.auth0_flutter_example
 
+import android.app.UiAutomation
 import android.content.Context
 import android.content.Intent
-import android.os.Environment
-import android.os.Environment.DIRECTORY_PICTURES
-import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import androidx.test.core.app.ApplicationProvider
@@ -15,19 +13,22 @@ import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.Until
 import org.hamcrest.CoreMatchers.notNullValue
 import org.hamcrest.MatcherAssert.assertThat
+import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import java.io.File
+
 
 @RunWith(AndroidJUnit4::class)
 class SmokeTest {
-    private var externalsDir: File? = null
+
     private val device: UiDevice
     private val PACKAGE_NAME = "com.auth0.sample"
+    private val CLASSIC_UL = true
+    private val APP_TITLE = "Flutter"
     private val LOGIN_BUTTON = "Login"
     private val LOGOUT_BUTTON = "Logout"
-    private val UL_BUTTON = "Log In"
+    private val UL_BUTTON = if (CLASSIC_UL) "Log In" else "Continue"
     private val TIMEOUT = 30000L
 
     init {
@@ -50,11 +51,10 @@ class SmokeTest {
             addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
         }
         context.startActivity(intent)
-        externalsDir = context.getExternalFilesDir(DIRECTORY_PICTURES);
-        //externalsDir = Environment.getExternalStoragePublicDirectory(DIRECTORY_PICTURES) ?: File("/sdcard/Pictures");
 
         // Wait for the app to appear
         device.wait(Until.hasObject(By.pkg(PACKAGE_NAME).depth(0)), TIMEOUT)
+        device.wait(Until.hasObject(By.textContains(APP_TITLE)), TIMEOUT)
     }
 
     @Test
@@ -62,13 +62,6 @@ class SmokeTest {
         // Start login
         val loginButton = By.clazz(Button::class.qualifiedName).descContains(LOGIN_BUTTON)
         device.wait(Until.hasObject(loginButton), TIMEOUT)
-
-        Log.i("++++ External Dir", externalsDir?.absolutePath + " ++++");
-
-        if (externalsDir != null) {
-            device.takeScreenshot(File(externalsDir?.absolutePath, "test0.png"));
-        }
-
         device.findObject(loginButton).click()
 
         // Fill login form
@@ -80,23 +73,16 @@ class SmokeTest {
         emailInput.text = BuildConfig.USER_EMAIL
         val passwordInput = device.findObjects(textInputs).last()
         passwordInput.text = BuildConfig.USER_PASSWORD
-
-        if (externalsDir != null) {
-            device.takeScreenshot(File(externalsDir?.absolutePath, "test1.png"));
-        }
-
         device.pressEnter()
         device.findObject(ulButton).click()
 
         // Logout
         val logoutButton = By.clazz(Button::class.qualifiedName).descContains(LOGOUT_BUTTON)
         device.wait(Until.hasObject(logoutButton), TIMEOUT)
-
-        if (externalsDir != null) {
-            device.takeScreenshot(File(externalsDir?.absolutePath, "test2.png"));
-        }
         device.findObject(logoutButton).click()
         device.wait(Until.hasObject(loginButton), TIMEOUT)
+
         assertThat(device.findObject(loginButton), notNullValue())
     }
+
 }
