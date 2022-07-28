@@ -2,13 +2,14 @@
 // in sample/test/widget_test.dart.
 // Do not manually edit this file.
 
-import 'dart:async' as _i6;
+import 'dart:async' as _i7;
 
-import 'package:auth0_flutter/auth0_flutter.dart' as _i5;
+import 'package:auth0_flutter/auth0_flutter.dart' as _i6;
 import 'package:auth0_flutter/src/authentication_api.dart' as _i3;
-import 'package:auth0_flutter/src/web_authentication.dart' as _i2;
+import 'package:auth0_flutter/src/credentials_manager.dart' as _i2;
+import 'package:auth0_flutter/src/web_authentication.dart' as _i4;
 import 'package:auth0_flutter_platform_interface/auth0_flutter_platform_interface.dart'
-    as _i4;
+    as _i5;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -21,51 +22,66 @@ import 'package:mockito/mockito.dart' as _i1;
 // ignore_for_file: unnecessary_parenthesis
 // ignore_for_file: camel_case_types
 
-class _FakeWebAuthentication_0 extends _i1.Fake
-    implements _i2.WebAuthentication {}
+class _FakeCredentialsManager_0 extends _i1.Fake
+    implements _i2.CredentialsManager {}
 
 class _FakeAuthenticationApi_1 extends _i1.Fake
     implements _i3.AuthenticationApi {}
 
-class _FakeCredentials_2 extends _i1.Fake implements _i4.Credentials {}
+class _FakeWebAuthentication_2 extends _i1.Fake
+    implements _i4.WebAuthentication {}
+
+class _FakeCredentials_3 extends _i1.Fake implements _i5.Credentials {}
 
 /// A class which mocks [Auth0].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockAuth0 extends _i1.Mock implements _i5.Auth0 {
+class MockAuth0 extends _i1.Mock implements _i6.Auth0 {
   MockAuth0() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i2.WebAuthentication get webAuthentication =>
-      (super.noSuchMethod(Invocation.getter(#webAuthentication),
-          returnValue: _FakeWebAuthentication_0()) as _i2.WebAuthentication);
+  _i2.CredentialsManager get credentialsManager =>
+      (super.noSuchMethod(Invocation.getter(#credentialsManager),
+          returnValue: _FakeCredentialsManager_0()) as _i2.CredentialsManager);
   @override
   _i3.AuthenticationApi get api => (super.noSuchMethod(Invocation.getter(#api),
       returnValue: _FakeAuthenticationApi_1()) as _i3.AuthenticationApi);
+  @override
+  _i4.WebAuthentication webAuthentication(
+          {bool? useCredentialsManager = true}) =>
+      (super.noSuchMethod(
+          Invocation.method(#webAuthentication, [],
+              {#useCredentialsManager: useCredentialsManager}),
+          returnValue: _FakeWebAuthentication_2()) as _i4.WebAuthentication);
 }
 
 /// A class which mocks [WebAuthentication].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockWebAuthentication extends _i1.Mock implements _i2.WebAuthentication {
+class MockWebAuthentication extends _i1.Mock implements _i4.WebAuthentication {
   MockWebAuthentication() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i6.Future<_i4.Credentials> login(
+  _i7.Future<_i5.Credentials> login(
           {String? audience,
-          Set<String>? scopes = const {},
+          Set<String>? scopes = const {
+            r'openid',
+            r'profile',
+            r'email',
+            r'offline_access'
+          },
           String? redirectUrl,
           String? organizationId,
           String? invitationUrl,
           String? scheme,
           bool? useEphemeralSession = false,
           Map<String, String>? parameters = const {},
-          _i4.IdTokenValidationConfig? idTokenValidationConfig =
-              const _i4.IdTokenValidationConfig()}) =>
+          _i5.IdTokenValidationConfig? idTokenValidationConfig =
+              const _i5.IdTokenValidationConfig()}) =>
       (super.noSuchMethod(
               Invocation.method(#login, [], {
                 #audience: audience,
@@ -78,13 +94,13 @@ class MockWebAuthentication extends _i1.Mock implements _i2.WebAuthentication {
                 #parameters: parameters,
                 #idTokenValidationConfig: idTokenValidationConfig
               }),
-              returnValue: Future<_i4.Credentials>.value(_FakeCredentials_2()))
-          as _i6.Future<_i4.Credentials>);
+              returnValue: Future<_i5.Credentials>.value(_FakeCredentials_3()))
+          as _i7.Future<_i5.Credentials>);
   @override
-  _i6.Future<void> logout({String? returnTo, String? scheme}) =>
+  _i7.Future<void> logout({String? returnTo, String? scheme}) =>
       (super.noSuchMethod(
           Invocation.method(
               #logout, [], {#returnTo: returnTo, #scheme: scheme}),
           returnValue: Future<void>.value(),
-          returnValueForMissingStub: Future<void>.value()) as _i6.Future<void>);
+          returnValueForMissingStub: Future<void>.value()) as _i7.Future<void>);
 }
