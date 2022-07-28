@@ -32,11 +32,11 @@ orbs:
           - run:
               name: Create screenshots artifact directory
               command: mkdir android-screenshots
-          - android/accept-licenses
           - android/create-avd:
               avd-name: auth0_sample_avd
               system-image: << parameters.android_simulator >>
               install: true
+          - android/accept-licenses
           - android/start-emulator:
               avd-name: auth0_sample_avd
               no-window: true
