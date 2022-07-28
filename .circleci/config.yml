@@ -17,8 +17,11 @@ orbs:
                 sed -i "s/{DOMAIN}/$AUTH0_DOMAIN/" .env
                 sed -i "s/{CLIENT_ID}/$AUTH0_CLIENT_ID/" .env
                 sed -i "s/# AUTH0_CUSTOM_SCHEME=/AUTH0_CUSTOM_SCHEME=demo/" .env
+
                 mv android/app/src/main/res/values/strings.xml.example android/app/src/main/res/values/strings.xml
                 sed -i "s/{DOMAIN}/$AUTH0_DOMAIN/" android/app/src/main/res/values/strings.xml
+
+                mv android/local.properties.ci android/local.properties
               working_directory: ./sample
       run-smoke-tests:
         description: "Runs the Android smoke tests"
@@ -54,7 +57,7 @@ orbs:
 parameters:
   flutter_version:
     type: string
-    default: 3.0.4
+    default: 3.0.5
 jobs:
   analyze_and_test:
     docker:
@@ -82,6 +85,12 @@ jobs:
       resource-class: xlarge
       tag: 2022.06.2
     steps:
+      - run:
+          name: Guard Smoke Tests
+          command: |
+            if ! [[ -z "$CIRCLE_PR_NUMBER" ]]; then
+                circleci-agent step halt
+            fi
       - checkout
       - flutter/install_sdk_and_pub:
           app-dir: ./sample
