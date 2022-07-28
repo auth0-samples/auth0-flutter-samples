@@ -8,7 +8,7 @@ orbs:
       android: circleci/android@2
     commands:
       prepare-config:
-        description: "Prepares the environment configuration files"
+        description: Prepares the environment configuration files
         steps:
           - run:
               name: Prepare Environment Configuration
@@ -24,16 +24,16 @@ orbs:
                 mv android/local.properties.ci android/local.properties
               working_directory: ./sample
       run-smoke-tests:
-        description: "Runs the Android smoke tests"
+        description: Runs the Android smoke tests
         parameters:
           android_simulator:
             type: string
         steps:
+          - android/accept-licenses
           - android/create-avd:
               avd-name: auth0_sample_avd
               system-image: << parameters.android_simulator >>
               install: true
-          - android/accept-licenses
           - android/start-emulator:
               avd-name: auth0_sample_avd
               no-window: true
@@ -99,10 +99,6 @@ jobs:
           android_simulator: << parameters.android_simulator >>
       - android/save-gradle-cache:
           cache-prefix: v1a
-      - run:
-          name: Delay shutdown
-          command: sleep 60
-          when: always
   test_ios:
     parameters:
       ios_simulator:

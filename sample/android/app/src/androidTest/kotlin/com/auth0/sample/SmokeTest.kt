@@ -1,6 +1,5 @@
-package com.auth0.auth0_flutter_example
+package com.auth0.sample
 
-import android.app.UiAutomation
 import android.content.Context
 import android.content.Intent
 import android.widget.Button
@@ -13,7 +12,6 @@ import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.Until
 import org.hamcrest.CoreMatchers.notNullValue
 import org.hamcrest.MatcherAssert.assertThat
-import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
