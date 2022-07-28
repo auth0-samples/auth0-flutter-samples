@@ -54,7 +54,7 @@ orbs:
               working-directory: ./sample/android
           - run:
               name: Copy screenshots
-              command: adb pull /sdcard/Pictures android-screenshots
+              command: adb pull /storage/emulated/0/Android/data/com.auth0.sample/files/Pictures android-screenshots
               when: always
           - store_artifacts:
               path: android-screenshots/Pictures
