@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Environment
 import android.os.Environment.DIRECTORY_PICTURES
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import androidx.test.core.app.ApplicationProvider
@@ -60,6 +61,8 @@ class SmokeTest {
         // Start login
         val loginButton = By.clazz(Button::class.qualifiedName).descContains(LOGIN_BUTTON)
         device.wait(Until.hasObject(loginButton), TIMEOUT)
+
+        Log.i("++++ External Dir", externalsDir?.absolutePath + " ++++");
 
         if (externalsDir != null) {
             device.takeScreenshot(File(externalsDir?.absolutePath, "test0.png"));

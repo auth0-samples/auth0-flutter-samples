@@ -52,6 +52,10 @@ orbs:
           - android/run-tests:
               max-tries: 1
               working-directory: ./sample/android
+          - run:
+              name: Copy screenshots
+              command: adb pull /sdcard/Pictures android-screenshots
+              when: always
           - store_artifacts:
               path: android-screenshots/Pictures
 parameters:
@@ -148,7 +152,7 @@ workflows:
     jobs:
       - analyze_and_test
       - smoke_test_android:
-          android_simulator: system-images;android-29;google_apis;x86
+          android_simulator: system-images;android-32;google_apis;x86_64
           requires:
             - analyze_and_test
       - test_ios:
