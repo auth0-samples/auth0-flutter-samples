@@ -30,6 +30,9 @@ jacoco {
 }
 
 android {
+    lintOptions {
+        abortOnError false
+    }
     compileSdkVersion 31
 
     compileOptions {
@@ -51,7 +54,7 @@ android {
         applicationId "com.auth0.sample"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-build-configuration.
-        minSdkVersion 21
+        minSdkVersion 25
         targetSdkVersion 31
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
