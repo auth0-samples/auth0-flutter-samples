@@ -152,7 +152,7 @@ workflows:
     jobs:
       - analyze_and_test
       - smoke_test_android:
-          android_simulator: system-images;android-32;google_apis;x86_64
+          android_simulator: system-images;android-29;google_apis;x86
           requires:
             - analyze_and_test
       - test_ios:
