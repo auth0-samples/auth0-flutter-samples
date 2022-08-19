@@ -50,8 +50,8 @@ class SmokeTest {
             addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
         }
         context.startActivity(intent)
-        externalsDir = context.getExternalFilesDir(DIRECTORY_PICTURES);
-        //externalsDir = Environment.getExternalStoragePublicDirectory(DIRECTORY_PICTURES) ?: File("/sdcard/Pictures");
+        //externalsDir = context.getExternalFilesDir(DIRECTORY_PICTURES);
+        externalsDir = Environment.getExternalStoragePublicDirectory(DIRECTORY_PICTURES) ?: File("/sdcard/Pictures");
 
         // Wait for the app to appear
         device.wait(Until.hasObject(By.pkg(PACKAGE_NAME).depth(0)), TIMEOUT)
