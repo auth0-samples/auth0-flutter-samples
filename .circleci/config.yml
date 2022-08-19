@@ -24,7 +24,7 @@ orbs:
                 mv android/local.properties.ci android/local.properties
               working_directory: ./sample
       run-smoke-tests:
-        description: "Runs the Android smoke tests"
+        description: Runs the Android smoke tests
         parameters:
           android_simulator:
             type: string
@@ -32,11 +32,11 @@ orbs:
           - run:
               name: Create screenshots artifact directory
               command: mkdir android-screenshots
+          - android/accept-licenses
           - android/create-avd:
               avd-name: auth0_sample_avd
               system-image: << parameters.android_simulator >>
               install: true
-          - android/accept-licenses
           - android/start-emulator:
               avd-name: auth0_sample_avd
               no-window: true
@@ -87,7 +87,7 @@ jobs:
     executor:
       name: android/android-machine
       resource-class: xlarge
-      tag: 2022.06.2
+      tag: 2022.06.1
     steps:
       - run:
           name: Guard Smoke Tests
@@ -152,7 +152,7 @@ workflows:
     jobs:
       - analyze_and_test
       - smoke_test_android:
-          android_simulator: system-images;android-31;google_apis;x86_64
+          android_simulator: system-images;android-32;google_apis;x86_64
           requires:
             - analyze_and_test
       - test_ios:
