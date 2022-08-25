@@ -28,8 +28,8 @@ class _ExampleAppState extends State<ExampleApp> {
 
   Future<void> login() async {
     var credentials = await auth0
-        .webAuthentication()
-        .login(scheme: dotenv.env['AUTH0_CUSTOM_SCHEME']);
+        .webAuthentication(scheme: dotenv.env['AUTH0_CUSTOM_SCHEME'])
+        .login();
 
     setState(() {
       _user = credentials.user;
@@ -38,8 +38,8 @@ class _ExampleAppState extends State<ExampleApp> {
 
   Future<void> logout() async {
     await auth0
-        .webAuthentication()
-        .logout(scheme: dotenv.env['AUTH0_CUSTOM_SCHEME']);
+        .webAuthentication(scheme: dotenv.env['AUTH0_CUSTOM_SCHEME'])
+        .logout();
 
     setState(() {
       _user = null;
