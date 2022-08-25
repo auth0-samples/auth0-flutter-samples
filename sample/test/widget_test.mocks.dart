@@ -50,7 +50,7 @@ class MockAuth0 extends _i1.Mock implements _i6.Auth0 {
       returnValue: _FakeAuthenticationApi_1()) as _i3.AuthenticationApi);
   @override
   _i4.WebAuthentication webAuthentication(
-          {bool? useCredentialsManager = true}) =>
+          {bool? useCredentialsManager = true, String? scheme}) =>
       (super.noSuchMethod(
           Invocation.method(#webAuthentication, [],
               {#useCredentialsManager: useCredentialsManager}),
@@ -77,7 +77,6 @@ class MockWebAuthentication extends _i1.Mock implements _i4.WebAuthentication {
           String? redirectUrl,
           String? organizationId,
           String? invitationUrl,
-          String? scheme,
           bool? useEphemeralSession = false,
           Map<String, String>? parameters = const {},
           _i5.IdTokenValidationConfig? idTokenValidationConfig =
@@ -89,7 +88,6 @@ class MockWebAuthentication extends _i1.Mock implements _i4.WebAuthentication {
                 #redirectUrl: redirectUrl,
                 #organizationId: organizationId,
                 #invitationUrl: invitationUrl,
-                #scheme: scheme,
                 #useEphemeralSession: useEphemeralSession,
                 #parameters: parameters,
                 #idTokenValidationConfig: idTokenValidationConfig
@@ -97,10 +95,10 @@ class MockWebAuthentication extends _i1.Mock implements _i4.WebAuthentication {
               returnValue: Future<_i5.Credentials>.value(_FakeCredentials_3()))
           as _i7.Future<_i5.Credentials>);
   @override
-  _i7.Future<void> logout({String? returnTo, String? scheme}) =>
+  _i7.Future<void> logout({String? returnTo}) =>
       (super.noSuchMethod(
           Invocation.method(
-              #logout, [], {#returnTo: returnTo, #scheme: scheme}),
+              #logout, [], {#returnTo: returnTo}),
           returnValue: Future<void>.value(),
           returnValueForMissingStub: Future<void>.value()) as _i7.Future<void>);
 }

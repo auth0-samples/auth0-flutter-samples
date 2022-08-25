@@ -8,15 +8,15 @@ class UserWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final pictureURL = user?.pictureURL;
+    final pictureUrl = user?.pictureUrl;
     // id, name, email, email verified, updated_at
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      if (pictureURL != null)
+      if (pictureUrl != null)
         Container(
             margin: const EdgeInsets.only(bottom: 12),
             child: CircleAvatar(
               radius: 56,
-              child: ClipOval(child: Image.network(pictureURL.toString())),
+              child: ClipOval(child: Image.network(pictureUrl.toString())),
             )),
       Card(
           child: Column(children: [

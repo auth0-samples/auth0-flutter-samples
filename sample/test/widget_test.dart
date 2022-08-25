@@ -29,7 +29,6 @@ AUTH0_CLIENT_ID=bar
     when(mocked.webAuthentication()).thenReturn(mockedWebAuth);
     when(mockedWebAuth.login(
       audience: anyNamed('audience'),
-      scheme: anyNamed('scheme'),
       invitationUrl: anyNamed('invitationUrl'),
       organizationId: anyNamed('organizationId'),
       redirectUrl: anyNamed('redirectUrl'),
@@ -61,7 +60,6 @@ AUTH0_CLIENT_ID=bar
 
     verify(mockedWebAuth.login(
       audience: anyNamed('audience'),
-      scheme: anyNamed('scheme'),
       invitationUrl: anyNamed('invitationUrl'),
       organizationId: anyNamed('organizationId'),
       redirectUrl: anyNamed('redirectUrl'),
@@ -86,7 +84,6 @@ AUTH0_CLIENT_ID=bar
 
     verify(mockedWebAuth.logout(
       returnTo: anyNamed('returnTo'),
-      scheme: anyNamed('scheme'),
     )).called(1);
 
     // Shows login button when logged out
