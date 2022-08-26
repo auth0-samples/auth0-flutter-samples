@@ -25,6 +25,10 @@ orbs:
               working_directory: ./sample
       run-smoke-tests:
         description: Runs the Android smoke tests
+        executor:
+          name: android/android-machine
+          resource-class: xlarge
+          tag: 2022.06.1
         parameters:
           android_simulator:
             type: string
