@@ -1,7 +1,6 @@
-# Flutter sample application
+# Flutter Sample App
 
-This sample application demonstrates the integration of the Auth0 Flutter SDK into a Flutter application. The sample is a companion to the [Auth0 Flutter Quickstart](https://auth0.com/docs/quickstart/native/flutter).
-
+This sample app demonstrates the integration of the Auth0 Flutter SDK into a Flutter app. The sample is a companion to the [Auth0 Flutter Quickstart](https://auth0.com/docs/quickstart/native/flutter/interactive).
 
 ## Requirements
 
@@ -10,23 +9,26 @@ This sample application demonstrates the integration of the Auth0 Flutter SDK in
 - Android Studio 4+ (for Android)
 
 ## Configure Auth0 Application
-Go to the settings page of your [Auth0 application](https://manage.auth0.com/#/applications/) and add the corresponding URL to **Allowed Callback URLs** and **Allowed Logout URLs**, according to the application target you want to run. If you are using a [custom domain](https://auth0.com/docs/customize/custom-domains), replace `YOUR_AUTH0_DOMAIN` with the value of your custom domain instead of the value from the settings page.
+
+Go to the settings page of your [Auth0 application](https://manage.auth0.com/#/applications/) and add the corresponding URL to **Allowed Callback URLs** and **Allowed Logout URLs**, according to the app target you want to run. If you are using a [custom domain](https://auth0.com/docs/customize/custom-domains), replace `YOUR_AUTH0_DOMAIN` with the value of your custom domain instead of the value from the settings page.
 
 **Android**
 
-```
+```text
 SCHEME://YOUR_AUTH0_DOMAIN/android/YOUR_PACKAGE_NAME/callback
 ```
 
 **iOS**
-```
+
+```text
 YOUR_BUNDLE_ID://YOUR_AUTH0_DOMAIN/ios/YOUR_BUNDLE_ID/callback
 ```
 
 ## Configure Auth0 Flutter
-The sample application uses [flutter_dotenv](https://pub.dev/packages/flutter_dotenv) for its configuration. Rename `.env.example` to `.env` and provide the appropriate **Domain** and **Client Id**. Optionally, when using Android, you can configure the scheme as well. This can be set to a custom scheme, or `https` if you want to use [Android App Links](https://auth0.com/docs/applications/enable-android-app-links). You can read more about setting this value in the [Auth0.Android SDK README](https://github.com/auth0/Auth0.Android#a-note-about-app-deep-linking).
 
-```
+The sample app uses [flutter_dotenv](https://pub.dev/packages/flutter_dotenv) for its configuration. Rename `.env.example` to `.env` and provide the appropriate **domain** and **Client Id**. Optionally, when using Android, you can configure the scheme as well. This can be set to a custom scheme, or `https` if you want to use [Android App Links](https://auth0.com/docs/applications/enable-android-app-links). You can read more about setting this value in the [Auth0.Android SDK README](https://github.com/auth0/Auth0.Android#a-note-about-app-deep-linking).
+
+```sh
 AUTH0_DOMAIN={DOMAIN}
 AUTH0_CLIENT_ID={CLIENT_ID}
 # AUTH0_CUSTOM_SCHEME=SCHEME
@@ -34,30 +36,30 @@ AUTH0_CLIENT_ID={CLIENT_ID}
 
 ### Android
 
-In the sample, we are using values referenced from `strings.xml`. Rename `strings.xml.example` to `strings.xml` and ensure to set the correct values.
+In the sample, we are using values referenced from `android/app/src/main/res/values/strings.xml`. Rename `strings.xml.example` to `strings.xml` and fill in the respective values.
 
-- `com_auth0_domain`: The domain of your Auth0 tenant. Generally, you can find this in the Auth0 Dashboard under your Application's Settings in the Domain field. If you are using a custom domain, you should set this to the value of your custom domain instead.
+- `com_auth0_domain`: The domain of your Auth0 tenant. Generally, you can find this in the Auth0 Dashboard under your application's settings in the **Domain** field. If you are using a custom domain, you should set this to the value of your custom domain instead.
 - `com_auth0_scheme`: The scheme to use. Can be a custom scheme, or `https` if you want to use [Android App Links](https://auth0.com/docs/applications/enable-android-app-links). You can read more about setting this value in the [Auth0.Android SDK README](https://github.com/auth0/Auth0.Android#a-note-about-app-deep-linking).
 
 ### iOS
 
-The sample has already configured the required **Url Types**  to ensure the callback and logout URLs can reach the application, so there is nothing to configure in order to run the sample on iOS.
+The sample has already configured the required **Url Types**  to ensure the callback and logout URLs can reach the app, so there is nothing to configure in order to run the sample on iOS.
 
 ## Run the sample
 
 To run the project, use the [Flutter CLI's](https://docs.flutter.dev/reference/flutter-cli) `run` command:
 
-```
+```sh
 flutter run
 ```
 
-Ensure you have at least one emulator running. If you have multiple running, the CLI will prompt you to select the one to run the application on.
+Ensure you have at least one emulator running. If you have multiple running, the CLI will prompt you to select the one to run the app on.
 
 ## Compile the sample
 
 To compile the project, use the [Flutter CLI's](https://docs.flutter.dev/reference/flutter-cli) `build` command, including the platform you want to target.
 
-```
+```sh
 flutter build apk
 flutter build ios
 ```
