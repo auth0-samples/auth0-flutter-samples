@@ -5,7 +5,7 @@ orbs:
 parameters:
   flutter_version:
     type: string
-    default: 3.0.4
+    default: 3.7.3
 jobs:
   analyze_and_test:
     docker:
