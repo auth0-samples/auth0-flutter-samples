@@ -27,23 +27,31 @@ class _ExampleAppState extends State<ExampleApp> {
   }
 
   Future<void> login() async {
-    var credentials = await auth0
-        .webAuthentication(scheme: dotenv.env['AUTH0_CUSTOM_SCHEME'])
-        .login();
+    try {
+      var credentials = await auth0
+          .webAuthentication(scheme: dotenv.env['AUTH0_CUSTOM_SCHEME'])
+          .login();
 
-    setState(() {
-      _user = credentials.user;
-    });
+      setState(() {
+        _user = credentials.user;
+      });
+    } on WebAuthenticationException catch (e) {
+      print(e);
+    }
   }
 
   Future<void> logout() async {
-    await auth0
-        .webAuthentication(scheme: dotenv.env['AUTH0_CUSTOM_SCHEME'])
-        .logout();
+    try {
+      await auth0
+          .webAuthentication(scheme: dotenv.env['AUTH0_CUSTOM_SCHEME'])
+          .logout();
 
-    setState(() {
-      _user = null;
-    });
+      setState(() {
+        _user = null;
+      });
+    } on WebAuthenticationException catch (e) {
+      print(e);
+    }
   }
 
   @override
