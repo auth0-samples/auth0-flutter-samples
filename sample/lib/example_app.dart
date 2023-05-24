@@ -45,12 +45,19 @@ class _ExampleAppState extends State<ExampleApp> {
     //     .login();
     final popup = window.open('', '', 'width=400,height=800');
 
-    final c = await auth0Web.loginWithPopup(popupWindow: popup);
+    try {
+      final c = await auth0Web.loginWithPopup(popupWindow: popup);
 
-    setState(() {
-      _user = c.user;
-      inspect(_user);
-    });
+      setState(() {
+        _user = c.user;
+        inspect(_user);
+      });
+    } on Exception catch (e) {
+      if (e is WebException) {
+        print('Exception');
+        print(e.message);
+      }
+    }
 
     // setState(() {
     //   _user = credentials.user;
