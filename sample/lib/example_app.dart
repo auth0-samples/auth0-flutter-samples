@@ -1,4 +1,9 @@
+import 'dart:developer';
+import 'dart:html';
+
 import 'package:auth0_flutter/auth0_flutter.dart';
+import 'package:auth0_flutter/auth0_flutter_web.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
@@ -7,8 +12,10 @@ import 'hero.dart';
 import 'user.dart';
 
 class ExampleApp extends StatefulWidget {
-  final Auth0? auth0;
-  const ExampleApp({this.auth0, final Key? key}) : super(key: key);
+  // final Auth0? auth0;
+  final Auth0Web? auth0Web;
+
+  const ExampleApp({this.auth0Web, final Key? key}) : super(key: key);
 
   @override
   State<ExampleApp> createState() => _ExampleAppState();
@@ -17,31 +24,49 @@ class ExampleApp extends StatefulWidget {
 class _ExampleAppState extends State<ExampleApp> {
   dynamic _user;
 
-  late Auth0 auth0;
+  late Auth0Web auth0Web;
 
   @override
   void initState() {
     super.initState();
-    auth0 = widget.auth0 ??
-        Auth0(dotenv.env['AUTH0_DOMAIN']!, dotenv.env['AUTH0_CLIENT_ID']!);
+    auth0Web =
+        Auth0Web(dotenv.env['AUTH0_DOMAIN']!, dotenv.env['AUTH0_CLIENT_ID']!);
+
+    if (kIsWeb) {
+      auth0Web.onLoad().then((final credentials) {
+        _user = credentials?.user;
+      });
+    }
   }
 
   Future<void> login() async {
-    var credentials = await auth0.webAuthentication
-        .login(scheme: dotenv.env['AUTH0_CUSTOM_SCHEME']);
+    // var credentials = await auth0
+    //     .webAuthentication(scheme: dotenv.env['AUTH0_CUSTOM_SCHEME'])
+    //     .login();
+    final popup = window.open('', '', 'width=400,height=800');
+
+    final c = await auth0Web.loginWithPopup(popupWindow: popup);
 
     setState(() {
-      _user = credentials.userProfile;
+      _user = c.user;
+      inspect(_user);
     });
+
+    // setState(() {
+    //   _user = credentials.user;
+    // });
   }
 
   Future<void> logout() async {
-    await auth0.webAuthentication
-        .logout(scheme: dotenv.env['AUTH0_CUSTOM_SCHEME']);
+    // await auth0
+    //     .webAuthentication(scheme: dotenv.env['AUTH0_CUSTOM_SCHEME'])
+    //     .logout();
 
-    setState(() {
-      _user = null;
-    });
+    return auth0Web.logout();
+
+    // setState(() {
+    //   _user = null;
+    // });
   }
 
   @override

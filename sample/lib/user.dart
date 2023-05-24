@@ -7,12 +7,12 @@ class UserWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     // id, name, email, email verified, updated_at
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      if (user.pictureURL != null)
+      if (user.pictureUrl != null)
         Container(
             margin: const EdgeInsets.only(bottom: 12),
             child: CircleAvatar(
               radius: 56,
-              child: ClipOval(child: Image.network(user.pictureURL.toString())),
+              child: ClipOval(child: Image.network(user.pictureUrl.toString())),
             )),
       Card(
           child: Column(children: [
