@@ -37,18 +37,18 @@ packages:
     dependency: "direct main"
     description:
       name: auth0_flutter
-      sha256: "2d29c95fd25164c9b9c88beefc19619b213e1c16e1ab067e926005d675cda344"
+      sha256: "396a419f2810f268215ef5483f739c9f3b61b1ce093729162b3a94acbbb4a384"
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.0"
+    version: "1.2.0-beta.1"
   auth0_flutter_platform_interface:
     dependency: transitive
     description:
       name: auth0_flutter_platform_interface
-      sha256: fdd22d22e3f2c45a4db5579f65d358aaed3d4d51eb9994031a497af5dc5e4736
+      sha256: d44022ddb60cb72e66e97b77797fa0417083973e6596ed0fe75e9f381c244466
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.0"
+    version: "1.2.0-beta.1"
   boolean_selector:
     dependency: transitive
     description:
@@ -256,6 +256,11 @@ packages:
     version: "2.0.1"
   flutter_test:
     dependency: "direct dev"
+    description: flutter
+    source: sdk
+    version: "0.0.0"
+  flutter_web_plugins:
+    dependency: transitive
     description: flutter
     source: sdk
     version: "0.0.0"
