@@ -6,9 +6,9 @@
 import 'dart:async' as _i7;
 
 import 'package:auth0_flutter/auth0_flutter.dart' as _i6;
-import 'package:auth0_flutter/src/authentication_api.dart' as _i3;
-import 'package:auth0_flutter/src/credentials_manager.dart' as _i2;
-import 'package:auth0_flutter/src/web_authentication.dart' as _i4;
+import 'package:auth0_flutter/src/mobile/authentication_api.dart' as _i3;
+import 'package:auth0_flutter/src/mobile/credentials_manager.dart' as _i2;
+import 'package:auth0_flutter/src/mobile/web_authentication.dart' as _i4;
 import 'package:auth0_flutter_platform_interface/auth0_flutter_platform_interface.dart'
     as _i5;
 import 'package:mockito/mockito.dart' as _i1;

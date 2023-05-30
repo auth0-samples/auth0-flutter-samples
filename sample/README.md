@@ -5,10 +5,12 @@ This sample app demonstrates the integration of the Auth0 Flutter SDK into a Flu
 ## Requirements
 
 - Flutter 3+
-- Xcode 13+ (for iOS)
+- Xcode 14+ (for iOS)
 - Android Studio 4+ (for Android)
 
 ## Configure Auth0 Application
+
+### 📱 Mobile
 
 Go to the settings page of your [Auth0 application](https://manage.auth0.com/#/applications/) and add the corresponding URL to **Allowed Callback URLs** and **Allowed Logout URLs**, according to the app target you want to run. If you are using a [custom domain](https://auth0.com/docs/customize/custom-domains), replace `YOUR_AUTH0_DOMAIN` with the value of your custom domain instead of the value from the settings page.
 
@@ -23,6 +25,14 @@ SCHEME://YOUR_AUTH0_DOMAIN/android/YOUR_PACKAGE_NAME/callback
 ```text
 YOUR_BUNDLE_ID://YOUR_AUTH0_DOMAIN/ios/YOUR_BUNDLE_ID/callback
 ```
+
+### 🖥️ Web
+
+Go to the settings page of your [Auth0 application](https://manage.auth0.com/#/applications/) and configure the following URLs:
+
+- Allowed Callback URLs: `http://localhost:3000`
+- Allowed Logout URLs: `http://localhost:3000`
+- Allowed Web Origins: `http://localhost:3000`
 
 ## Configure Auth0 Flutter
 
@@ -47,13 +57,21 @@ The sample has already configured the required **Url Types**  to ensure the call
 
 ## Run the sample
 
-To run the project, use the [Flutter CLI's](https://docs.flutter.dev/reference/flutter-cli) `run` command:
+To run the project, use the [Flutter CLI's](https://docs.flutter.dev/reference/flutter-cli) `run` command.
+
+### 📱 Mobile
 
 ```sh
 flutter run
 ```
 
 Ensure you have at least one emulator running. If you have multiple running, the CLI will prompt you to select the one to run the app on.
+
+### 🖥️ Web
+
+```sh
+flutter run -d chrome --web-port 3000 --web-renderer html
+```
 
 ## Compile the sample
 
@@ -62,6 +80,7 @@ To compile the project, use the [Flutter CLI's](https://docs.flutter.dev/referen
 ```sh
 flutter build apk
 flutter build ios
+flutter build web
 ```
 
 ## Issue Reporting
