@@ -49,20 +49,6 @@ body:
     validations:
       required: false
 
-  - type: input
-    id: environment-version
-    attributes:
-      label: auth0_flutter version
-    validations:
-      required: true
-
-  - type: input
-    id: environment-flutter-version
-    attributes:
-      label: Flutter version
-    validations:
-      required: true
-
   - type: dropdown
     id: environment-platform
     attributes:
