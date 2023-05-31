@@ -2,7 +2,7 @@ PODS:
   - Auth0 (2.3.2):
     - JWTDecode (~> 3.0)
     - SimpleKeychain (~> 1.0)
-  - auth0_flutter (1.2.0-beta.1):
+  - auth0_flutter (1.2.0):
     - Auth0 (~> 2.3)
     - Flutter
   - Flutter (1.0.0)
