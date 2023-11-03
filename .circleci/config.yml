@@ -1,7 +1,7 @@
 version: 2.1
 orbs:
   macos: circleci/macos@2
-  flutter: circleci/flutter@1
+  flutter: circleci/flutter@2
 parameters:
   flutter_version:
     type: string
@@ -14,7 +14,7 @@ jobs:
       - checkout
       - flutter/install_sdk_and_pub:
           app-dir: ./sample
-          flutter_version: << pipeline.parameters.flutter_version >>
+          version: << pipeline.parameters.flutter_version >>
       - run:
           name: Prepare Environment Variables
           command: cp .env.example .env
@@ -32,7 +32,8 @@ jobs:
       ios_simulator:
         type: string
     macos:
-      xcode: '13.0.0'
+      xcode: '14.3.1'
+    resource_class: macos.m1.medium.gen1
     environment:
       BUNDLE_RETRY: 3
       HOMEBREW_NO_AUTO_UPDATE: 1
@@ -40,12 +41,15 @@ jobs:
     steps:
       - checkout
       - macos/preboot-simulator:
-          version: '15.0'
+          version: '16.4'
           platform: iOS
           device: << parameters.ios_simulator >>
       - flutter/install_sdk_and_pub:
           app-dir: ./sample
-          flutter_version: << pipeline.parameters.flutter_version >>
+          version: << pipeline.parameters.flutter_version >>
+      - run:
+          name: Update Cocoapods
+          command: gem update cocoapods
       - flutter/install_ios_pod:
           app-dir: ./sample
       - run:
@@ -67,6 +71,6 @@ workflows:
     jobs:
       - analyze_and_test
       - test_ios:
-          ios_simulator: iPhone 13
+          ios_simulator: iPhone 14
           requires:
             - analyze_and_test
