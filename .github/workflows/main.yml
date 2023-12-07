@@ -106,3 +106,38 @@ jobs:
               with:
                 platform: ${{ env.platform }}
                 destination: 'platform=iOS Simulator,name=iPhone 15'
+
+    test-macos-smoke:
+        name: Run native macOS smoke tests using Xcode ${{ matrix.xcode }}
+        needs: authorize
+        runs-on: macos-13
+        environment: ${{ github.event.pull_request.head.repo.fork && 'external' || 'internal' }}
+
+        env:
+            platform: macOS
+            USER_EMAIL: ${{ secrets.USER_EMAIL }}
+            USER_PASSWORD: ${{ secrets.USER_PASSWORD }}
+
+        strategy:
+          matrix:
+            xcode:
+              - '15.0.1'
+
+        steps:
+            - name: Checkout
+              uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
+
+            - name: Set up environment
+              uses: ./.github/actions/setup-darwin
+              with:
+                platform: ${{ env.platform }}
+                flutter: ${{ env.flutter }}
+                xcode: ${{ matrix.xcode }}
+                auth0-domain: ${{ vars.AUTH0_DOMAIN }}
+                auth0-client-id: ${{ vars.AUTH0_CLIENT_ID }}
+
+            - name: Run macOS smoke tests
+              uses: ./.github/actions/smoke-tests-darwin
+              with:
+                platform: ${{ env.platform }}
+                destination: platform=macOS,arch=x86_64
