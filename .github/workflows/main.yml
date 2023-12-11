@@ -1,0 +1,143 @@
+name: CI
+
+on:
+    pull_request:
+      types:
+        - opened
+        - synchronize
+
+permissions: {}
+
+concurrency:
+    group: ${{ github.workflow }}-${{ github.ref }}
+    cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+
+env:
+    flutter: '3.x'
+    ios-simulator: iPhone 15
+
+jobs:
+    authorize:
+      name: Authorize
+      environment: ${{ github.event.pull_request.head.repo.fork && 'external' || 'internal' }}
+      runs-on: ubuntu-latest
+      steps:
+        - run: true
+
+    analyze-dart:
+        name: Analyze Dart code
+        needs: authorize
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout
+              uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
+
+            - name: Install Flutter
+              uses: subosito/flutter-action@2783a3f08e1baf891508463f8c6653c258246225
+              with:
+                  flutter-version: ${{ env.flutter }}
+                  channel: stable
+                  cache: true
+
+            - name: Add sample/.env
+              working-directory: sample
+              run: cp .env.example .env
+
+            - name: Run Dart analyzer
+              working-directory: sample
+              run: flutter analyze
+
+    test-dart:
+        name: Test Dart code
+        needs: authorize
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout
+              uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
+
+            - name: Install Flutter
+              uses: subosito/flutter-action@2783a3f08e1baf891508463f8c6653c258246225
+              with:
+                  flutter-version: ${{ env.flutter }}
+                  channel: stable
+                  cache: true
+
+            - name: Add sample/.env
+              working-directory: sample
+              run: cp .env.example .env
+
+            - name: Run Dart tests
+              working-directory: sample
+              run: flutter test
+
+    test-ios-smoke:
+        name: Run native iOS smoke tests using Xcode ${{ matrix.xcode }}
+        needs: authorize
+        runs-on: macos-13-large
+        environment: ${{ github.event.pull_request.head.repo.fork && 'external' || 'internal' }}
+
+        env:
+            platform: iOS
+            USER_EMAIL: ${{ secrets.USER_EMAIL }}
+            USER_PASSWORD: ${{ secrets.USER_PASSWORD }}
+
+        strategy:
+          matrix:
+            xcode:
+              - '15.0.1'
+
+        steps:
+            - name: Checkout
+              uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
+
+            - name: Set up environment
+              uses: ./.github/actions/setup-darwin
+              with:
+                platform: ${{ env.platform }}
+                flutter: ${{ env.flutter }}
+                xcode: ${{ matrix.xcode }}
+                auth0-domain: ${{ vars.AUTH0_DOMAIN }}
+                auth0-client-id: ${{ vars.AUTH0_CLIENT_ID }}
+
+            - name: Run iOS smoke tests
+              uses: ./.github/actions/smoke-tests-darwin
+              with:
+                platform: ${{ env.platform }}
+                destination: 'platform=iOS Simulator,name=iPhone 15'
+
+    test-macos-smoke:
+        name: Run native macOS smoke tests using Xcode ${{ matrix.xcode }}
+        needs: authorize
+        runs-on: macos-13
+        environment: ${{ github.event.pull_request.head.repo.fork && 'external' || 'internal' }}
+
+        env:
+            platform: macOS
+            USER_EMAIL: ${{ secrets.USER_EMAIL }}
+            USER_PASSWORD: ${{ secrets.USER_PASSWORD }}
+
+        strategy:
+          matrix:
+            xcode:
+              - '15.0.1'
+
+        steps:
+            - name: Checkout
+              uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
+
+            - name: Set up environment
+              uses: ./.github/actions/setup-darwin
+              with:
+                platform: ${{ env.platform }}
+                flutter: ${{ env.flutter }}
+                xcode: ${{ matrix.xcode }}
+                auth0-domain: ${{ vars.AUTH0_DOMAIN }}
+                auth0-client-id: ${{ vars.AUTH0_CLIENT_ID }}
+
+            - name: Run macOS smoke tests
+              uses: ./.github/actions/smoke-tests-darwin
+              with:
+                platform: ${{ env.platform }}
+                destination: platform=macOS,arch=x86_64
