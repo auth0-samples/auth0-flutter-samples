@@ -20,7 +20,7 @@ jobs:
     if: (github.repository_owner == 'auth0-samples')
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - if: (github.actor != 'dependabot[bot]')
         run: semgrep ci
