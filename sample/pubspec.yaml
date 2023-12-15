@@ -33,6 +33,7 @@ dependencies:
       url: https://github.com/auth0/auth0-flutter.git
       ref: feature/macos-support
       path: auth0_flutter
+    version: 1.4.1
   flutter:
     sdk: flutter
   flutter_dotenv: ^5.0.2
