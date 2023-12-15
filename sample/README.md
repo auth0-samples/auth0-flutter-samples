@@ -5,12 +5,12 @@ This sample app demonstrates the integration of the Auth0 Flutter SDK into a Flu
 ## Requirements
 
 - Flutter 3+
-- Xcode 14+ (for iOS)
+- Xcode 14.x / 15.x (for iOS/macOS)
 - Android Studio 4+ (for Android)
 
 ## Configure Auth0 Application
 
-### 📱 Mobile
+### 📱 Mobile/Desktop
 
 Go to the settings page of your [Auth0 application](https://manage.auth0.com/#/applications/) and add the corresponding URL to **Allowed Callback URLs** and **Allowed Logout URLs**, according to the app target you want to run. If you are using a [custom domain](https://auth0.com/docs/customize/custom-domains), replace `YOUR_AUTH0_DOMAIN` with the value of your custom domain instead of the value from the settings page.
 
@@ -26,7 +26,13 @@ SCHEME://YOUR_AUTH0_DOMAIN/android/YOUR_PACKAGE_NAME/callback
 YOUR_BUNDLE_ID://YOUR_AUTH0_DOMAIN/ios/YOUR_BUNDLE_ID/callback
 ```
 
-### 🖥️ Web
+**macOS**
+
+```text
+YOUR_BUNDLE_ID://YOUR_AUTH0_DOMAIN/macos/YOUR_BUNDLE_ID/callback
+```
+
+### 🌐 Web
 
 Go to the settings page of your [Auth0 application](https://manage.auth0.com/#/applications/) and configure the following URLs:
 
@@ -51,15 +57,15 @@ In the sample, we are using values referenced from `android/app/src/main/res/val
 - `com_auth0_domain`: The domain of your Auth0 tenant. Generally, you can find this in the Auth0 Dashboard under your application's settings in the **Domain** field. If you are using a custom domain, you should set this to the value of your custom domain instead.
 - `com_auth0_scheme`: The scheme to use. Can be a custom scheme, or `https` if you want to use [Android App Links](https://auth0.com/docs/applications/enable-android-app-links). You can read more about setting this value in the [Auth0.Android SDK README](https://github.com/auth0/Auth0.Android#a-note-about-app-deep-linking).
 
-### iOS
+### iOS/macOS
 
-The sample has already configured the required **Url Types**  to ensure the callback and logout URLs can reach the app, so there is nothing to configure in order to run the sample on iOS.
+The sample has already configured the required **Url Types** to ensure the callback and logout URLs can reach the app, so there is nothing to configure to run the sample on iOS and macOS.
 
 ## Run the sample
 
 To run the project, use the [Flutter CLI's](https://docs.flutter.dev/reference/flutter-cli) `run` command.
 
-### 📱 Mobile
+### 📱 Mobile/Desktop
 
 ```sh
 flutter run
@@ -67,7 +73,7 @@ flutter run
 
 Ensure you have at least one emulator running. If you have multiple running, the CLI will prompt you to select the one to run the app on.
 
-### 🖥️ Web
+### 🌐 Web
 
 ```sh
 flutter run -d chrome --web-port 3000 --web-renderer html
@@ -80,6 +86,7 @@ To compile the project, use the [Flutter CLI's](https://docs.flutter.dev/referen
 ```sh
 flutter build apk
 flutter build ios
+flutter build macos
 flutter build web
 ```
 
