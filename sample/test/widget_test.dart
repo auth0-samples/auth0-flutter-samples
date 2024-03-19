@@ -34,6 +34,7 @@ AUTH0_CLIENT_ID=bar
       redirectUrl: anyNamed('redirectUrl'),
       scopes: anyNamed('scopes'),
       parameters: anyNamed('parameters'),
+      useHTTPS: anyNamed('useHTTPS'),
       useEphemeralSession: anyNamed('useEphemeralSession'),
       idTokenValidationConfig: anyNamed('idTokenValidationConfig'),
     )).thenAnswer((_) => Future.value(Credentials.fromMap({
@@ -65,6 +66,7 @@ AUTH0_CLIENT_ID=bar
       redirectUrl: anyNamed('redirectUrl'),
       scopes: anyNamed('scopes'),
       parameters: anyNamed('parameters'),
+      useHTTPS: anyNamed('useHTTPS'),
       useEphemeralSession: anyNamed('useEphemeralSession'),
       idTokenValidationConfig: anyNamed('idTokenValidationConfig'),
     )).called(1);
@@ -83,6 +85,7 @@ AUTH0_CLIENT_ID=bar
     await tester.pumpAndSettle();
 
     verify(mockedWebAuth.logout(
+      useHTTPS: anyNamed('useHTTPS'),
       returnTo: anyNamed('returnTo'),
     )).called(1);
 
