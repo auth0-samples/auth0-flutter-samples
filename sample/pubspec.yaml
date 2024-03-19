@@ -28,7 +28,7 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
-  auth0_flutter: 1.5.0
+  auth0_flutter: 1.6.0
   flutter:
     sdk: flutter
   flutter_dotenv: ^5.0.2
