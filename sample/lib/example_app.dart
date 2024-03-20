@@ -45,7 +45,9 @@ class _ExampleAppState extends State<ExampleApp> {
 
       var credentials = await auth0
           .webAuthentication(scheme: dotenv.env['AUTH0_CUSTOM_SCHEME'])
-          .login();
+          // Use a Universal Link callback URL on iOS 17.4+ / macOS 14.4+
+          // useHTTPS is ignored on Android
+          .login(useHTTPS: true);
 
       setState(() {
         _user = credentials.user;
@@ -62,7 +64,9 @@ class _ExampleAppState extends State<ExampleApp> {
       } else {
         await auth0
             .webAuthentication(scheme: dotenv.env['AUTH0_CUSTOM_SCHEME'])
-            .logout();
+            // Use a Universal Link logout URL on iOS 17.4+ / macOS 14.4+
+            // useHTTPS is ignored on Android
+            .logout(useHTTPS: true);
         setState(() {
           _user = null;
         });
