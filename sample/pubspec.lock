@@ -37,18 +37,18 @@ packages:
     dependency: "direct main"
     description:
       name: auth0_flutter
-      sha256: "89ec237b58f5e07e69984993adbb665f0170f6a0de4b2282efbd218dc97752ae"
+      sha256: "164c911527fdbe58441852d57ff7ff9e4ef0dac0e20140d9b666f1cdf654e1a4"
       url: "https://pub.dev"
     source: hosted
-    version: "1.6.0"
+    version: "2.1.0-beta.1"
   auth0_flutter_platform_interface:
     dependency: transitive
     description:
       name: auth0_flutter_platform_interface
-      sha256: "44d98f616803f65a43164c2810a9ad416530a80426f381441164208b8844af86"
+      sha256: "6089f90aa0c9bb1fedd41658d8ea153bf376ecbf11b37db73a0c68024e9954ac"
       url: "https://pub.dev"
     source: hosted
-    version: "1.6.0"
+    version: "2.1.0-beta.1"
   boolean_selector:
     dependency: transitive
     description:
@@ -300,10 +300,10 @@ packages:
     dependency: transitive
     description:
       name: http
-      sha256: "761a297c042deedc1ffbb156d6e2af13886bb305c2a343a4d972504cd67dd938"
+      sha256: "87721a4a50b19c7f1d49001e51409bddc46303966ce89a65af4f4e6004896412"
       url: "https://pub.dev"
     source: hosted
-    version: "1.2.1"
+    version: "1.6.0"
   http_multi_server:
     dependency: transitive
     description:
@@ -713,18 +713,18 @@ packages:
     dependency: transitive
     description:
       name: web
-      sha256: "97da13628db363c635202ad97068d47c5b8aa555808e7a9411963c533b449b27"
+      sha256: "868d88a33d8a87b18ffc05f9f030ba328ffefba92d6c127917a2ba740f9cfe4a"
       url: "https://pub.dev"
     source: hosted
-    version: "0.5.1"
+    version: "1.1.1"
   web_socket_channel:
     dependency: transitive
     description:
       name: web_socket_channel
-      sha256: "1d8e795e2a8b3730c41b8a98a2dff2e0fb57ae6f0764a1c46ec5915387d257b2"
+      sha256: d88238e5eac9a42bb43ca4e721edba3c08c6354d4a53063afaa568516217621b
       url: "https://pub.dev"
     source: hosted
-    version: "2.4.4"
+    version: "2.4.0"
   webkit_inspection_protocol:
     dependency: transitive
     description:
@@ -759,4 +759,4 @@ packages:
     version: "3.1.2"
 sdks:
   dart: ">=3.7.0-0 <4.0.0"
-  flutter: ">=3.18.0-18.0.pre.54"
+  flutter: ">=3.24.0"
