@@ -97,22 +97,11 @@ In the sample, we are using values referenced from `android/app/src/main/res/val
 </resources>
 ```
 
-## 3. Windows: Register the custom URI scheme
+## 3. Windows: URI scheme registration
 
-The Windows runner intercepts the `auth0flutter://callback` URI scheme to complete the authentication flow. You need to register this scheme in the Windows Registry so that the OS can redirect the browser callback back to the app.
+The Windows runner intercepts the `auth0flutter://callback` URI scheme to complete the authentication flow. **Registration is automatic** — the app writes the required registry entry under `HKCU\Software\Classes\auth0flutter` on first launch, so no admin rights or manual steps are needed.
 
-Run the following in an **elevated PowerShell** prompt (replace `YOUR_APP_PATH` with the path to your built `sample.exe`):
-
-```powershell
-New-Item -Path "HKCU:\Software\Classes\auth0flutter" -Force
-Set-ItemProperty -Path "HKCU:\Software\Classes\auth0flutter" -Name "(Default)" -Value "URL:auth0flutter"
-Set-ItemProperty -Path "HKCU:\Software\Classes\auth0flutter" -Name "URL Protocol" -Value ""
-New-Item -Path "HKCU:\Software\Classes\auth0flutter\shell\open\command" -Force
-Set-ItemProperty -Path "HKCU:\Software\Classes\auth0flutter\shell\open\command" -Name "(Default)" -Value '"YOUR_APP_PATH\sample.exe" "%1"'
-```
-
-> [!NOTE]
-> `flutter run` on Windows registers the URI scheme automatically during development. Manual registration is only needed for a built/installed executable.
+The entry is updated every time the executable path changes (e.g. after a `flutter run` rebuild), so the flow works correctly in both development and production.
 
 ## 4. iOS/macOS: Configure the associated domain
 

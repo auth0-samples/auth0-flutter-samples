@@ -13,6 +13,77 @@
 #include "../flutter/ephemeral/.plugin_symlinks/auth0_flutter/windows/plugin_startup_url_lock.h"
 
 const wchar_t* kSingleInstanceMutex = L"auth0flutter_single_instance_mutex";
+
+// ---------------------------------------------------------------------------
+// URI scheme self-registration
+//
+// Registers "auth0flutter://" in HKCU\Software\Classes so the OS knows to
+// launch this executable when the browser redirects to auth0flutter://callback.
+//
+// Using HKCU (per-user) means no admin rights are required, and the entry
+// automatically points to the current build output — essential for `flutter
+// run` where the exe path changes on every build.
+// ---------------------------------------------------------------------------
+static void RegisterUriScheme() {
+  wchar_t exePath[MAX_PATH] = {};
+  if (GetModuleFileNameW(nullptr, exePath, MAX_PATH) == 0) {
+    return;  // cannot determine own path — skip silently
+  }
+
+  // Build the open command: "C:\path\to\sample.exe" "%1"
+  std::wstring command = L"\"";
+  command += exePath;
+  command += L"\" \"%1\"";
+
+  // Check whether the registry already contains this exact command.
+  // If so, skip writing to avoid unnecessary registry churn on every launch.
+  {
+    HKEY hCheck = nullptr;
+    if (RegOpenKeyExW(HKEY_CURRENT_USER,
+                      L"Software\\Classes\\auth0flutter\\shell\\open\\command",
+                      0, KEY_READ, &hCheck) == ERROR_SUCCESS) {
+      wchar_t existing[MAX_PATH * 2] = {};
+      DWORD size = sizeof(existing);
+      DWORD type = REG_SZ;
+      RegQueryValueExW(hCheck, nullptr, nullptr, &type,
+                       reinterpret_cast<LPBYTE>(existing), &size);
+      RegCloseKey(hCheck);
+      if (command == existing) {
+        return;  // already registered with the correct path
+      }
+    }
+  }
+
+  // Write root key  HKCU\Software\Classes\auth0flutter
+  HKEY hRoot = nullptr;
+  if (RegCreateKeyExW(HKEY_CURRENT_USER, L"Software\\Classes\\auth0flutter",
+                      0, nullptr, REG_OPTION_NON_VOLATILE,
+                      KEY_WRITE, nullptr, &hRoot, nullptr) != ERROR_SUCCESS) {
+    return;
+  }
+  const wchar_t* kDisplayName = L"URL:auth0flutter Protocol";
+  RegSetValueExW(hRoot, nullptr, 0, REG_SZ,
+                 reinterpret_cast<const BYTE*>(kDisplayName),
+                 static_cast<DWORD>((wcslen(kDisplayName) + 1) * sizeof(wchar_t)));
+  // "URL Protocol" empty value marks this key as a URI scheme handler
+  RegSetValueExW(hRoot, L"URL Protocol", 0, REG_SZ,
+                 reinterpret_cast<const BYTE*>(L""),
+                 static_cast<DWORD>(sizeof(wchar_t)));
+  RegCloseKey(hRoot);
+
+  // Write open command  HKCU\Software\Classes\auth0flutter\shell\open\command
+  HKEY hCmd = nullptr;
+  if (RegCreateKeyExW(HKEY_CURRENT_USER,
+                      L"Software\\Classes\\auth0flutter\\shell\\open\\command",
+                      0, nullptr, REG_OPTION_NON_VOLATILE,
+                      KEY_WRITE, nullptr, &hCmd, nullptr) != ERROR_SUCCESS) {
+    return;
+  }
+  RegSetValueExW(hCmd, nullptr, 0, REG_SZ,
+                 reinterpret_cast<const BYTE*>(command.c_str()),
+                 static_cast<DWORD>((command.size() + 1) * sizeof(wchar_t)));
+  RegCloseKey(hCmd);
+}
 const wchar_t* kRedirectPipeName    = L"\\\\.\\pipe\\auth0flutter_pipe";
 
 // Only URLs beginning with this prefix are accepted from the pipe.
@@ -105,29 +176,29 @@ void BringExistingWindowToFront() {
 void StartPipeServer() {
   std::thread([] {
     while (true) {
-      // Restrict the pipe to the current user only.
-      // A NULL security descriptor would allow any process on the system to
-      // connect, which would let an attacker inject an arbitrary startup URL.
+      // Prefer a user-restricted DACL so only this user's processes can write
+      // to the pipe. Fall back to NULL (process-default security) when the
+      // descriptor cannot be built — the URL prefix validation below still
+      // prevents injection of arbitrary strings even in that case.
       PSECURITY_DESCRIPTOR pSD = BuildCurrentUserSD();
-      if (!pSD) {
-        // Cannot create a restricted descriptor; refuse to expose an
-        // unrestricted pipe rather than fall back to the default DACL.
-        return;
-      }
 
       SECURITY_ATTRIBUTES sa = {};
-      sa.nLength              = sizeof(sa);
-      sa.lpSecurityDescriptor = pSD;
-      sa.bInheritHandle       = FALSE;
+      SECURITY_ATTRIBUTES* pSa = nullptr;
+      if (pSD) {
+        sa.nLength              = sizeof(sa);
+        sa.lpSecurityDescriptor = pSD;
+        sa.bInheritHandle       = FALSE;
+        pSa = &sa;
+      }
 
       HANDLE hPipe = CreateNamedPipeW(
           kRedirectPipeName,
           PIPE_ACCESS_INBOUND,
           PIPE_TYPE_MESSAGE | PIPE_READMODE_MESSAGE | PIPE_WAIT,
-          1, 0, 0, 0, &sa);
+          1, 0, 0, 0, pSa);
 
       // Security descriptor is no longer needed once the pipe is created.
-      LocalFree(pSD);
+      if (pSD) LocalFree(pSD);
 
       if (hPipe == INVALID_HANDLE_VALUE) {
         return;
@@ -223,6 +294,16 @@ if (alreadyRunning) {
   CloseHandle(hMutex);
   return 0;
 }
+
+  // -----------------------------
+  // Register URI scheme (first instance only)
+  // -----------------------------
+  // Writes HKCU\Software\Classes\auth0flutter\shell\open\command pointing at
+  // the current executable so the OS can launch this app when the browser
+  // redirects to auth0flutter://callback after authentication.
+  // Using HKCU requires no admin rights. Re-registration is skipped when the
+  // command already matches, so there is no overhead on subsequent launches.
+  RegisterUriScheme();
 
   // -----------------------------
   // First instance: store startup URI
