@@ -1,3 +1,5 @@
+import 'dart:io' show Platform;
+
 import 'package:auth0_flutter/auth0_flutter.dart';
 import 'package:auth0_flutter/auth0_flutter_web.dart';
 import 'package:flutter/foundation.dart';
@@ -43,11 +45,18 @@ class _ExampleAppState extends State<ExampleApp> {
         return auth0Web.loginWithRedirect(redirectUrl: 'http://localhost:3000');
       }
 
-      var credentials = await auth0
-          .webAuthentication(scheme: dotenv.env['AUTH0_CUSTOM_SCHEME'])
-          // Use a Universal Link callback URL on iOS 17.4+ / macOS 14.4+
-          // useHTTPS is ignored on Android
-          .login(useHTTPS: true);
+      Credentials credentials;
+      if (Platform.isWindows) {
+        credentials = await auth0
+            .windowsWebAuthentication()
+            .login(appCustomURL: 'auth0flutter://callback');
+      } else {
+        credentials = await auth0
+            .webAuthentication(scheme: dotenv.env['AUTH0_CUSTOM_SCHEME'])
+            // Use a Universal Link callback URL on iOS 17.4+ / macOS 14.4+
+            // useHTTPS is ignored on Android
+            .login(useHTTPS: true);
+      }
 
       setState(() {
         _user = credentials.user;
@@ -61,6 +70,13 @@ class _ExampleAppState extends State<ExampleApp> {
     try {
       if (kIsWeb) {
         await auth0Web.logout(returnToUrl: 'http://localhost:3000');
+      } else if (Platform.isWindows) {
+        await auth0
+            .windowsWebAuthentication()
+            .logout(appCustomURL: 'auth0flutter://callback');
+        setState(() {
+          _user = null;
+        });
       } else {
         await auth0
             .webAuthentication(scheme: dotenv.env['AUTH0_CUSTOM_SCHEME'])

@@ -4,9 +4,10 @@ This sample app demonstrates the integration of the Auth0 Flutter SDK into a Flu
 
 ## Requirements
 
-- Flutter 3+
+- Flutter 3.24+
 - Xcode 14.x / 15.x (for iOS/macOS)
 - Android Studio 4+ (for Android)
+- Visual Studio 2022 with "Desktop development with C++" workload and vcpkg (for Windows)
 
 > [!NOTE]
 > On iOS 17.4+ and macOS 14.4+ it is possible to use Universal Links as callback and logout URLs. auth0_flutter will fall back to using a custom URL scheme on older iOS / macOS versions.
@@ -42,6 +43,12 @@ YOUR_BUNDLE_IDENTIFIER://YOUR_AUTH0_DOMAIN/ios/YOUR_BUNDLE_IDENTIFIER/callback
 ```text
 https://YOUR_AUTH0_DOMAIN/macos/YOUR_BUNDLE_IDENTIFIER/callback,
 YOUR_BUNDLE_IDENTIFIER://YOUR_AUTH0_DOMAIN/macos/YOUR_BUNDLE_IDENTIFIER/callback
+```
+
+#### Windows
+
+```text
+auth0flutter://callback
 ```
 
 <details>
@@ -90,7 +97,13 @@ In the sample, we are using values referenced from `android/app/src/main/res/val
 </resources>
 ```
 
-## 3. iOS/macOS: Configure the associated domain
+## 3. Windows: URI scheme registration
+
+The Windows runner intercepts the `auth0flutter://callback` URI scheme to complete the authentication flow. **Registration is automatic** — the app writes the required registry entry under `HKCU\Software\Classes\auth0flutter` on first launch, so no admin rights or manual steps are needed.
+
+The entry is updated every time the executable path changes (e.g. after a `flutter run` rebuild), so the flow works correctly in both development and production.
+
+## 4. iOS/macOS: Configure the associated domain
 
 ### Configure the entitlements
 
@@ -125,7 +138,7 @@ This will add the app to your Auth0 tenant's `apple-app-site-association` file.
 > [!NOTE]
 > For the associated domain to work, the app must be signed with your team certificate **even when building for the iOS simulator**. Make sure you are using the Apple Team whose Team ID is configured in the settings page of your Auth0 application.
 
-## 4. Run the sample
+## 5. Run the sample
 
 Use the [Flutter CLI](https://docs.flutter.dev/reference/flutter-cli) to run the app.
 
@@ -135,13 +148,23 @@ Use the [Flutter CLI](https://docs.flutter.dev/reference/flutter-cli) to run the
 flutter run
 ```
 
-Ensure you have at least one emulator/simulator running. If you have multiple running, the CLI will prompt you to select the one to run the app on.
+Ensure you have at least one emulator/simulator running or a connected device. If you have multiple running, the CLI will prompt you to select the one to run the app on.
+
+### 🪟 Windows
+
+```sh
+flutter run -d windows
+```
+
+> [!IMPORTANT]
+> The Windows build requires [vcpkg](https://github.com/microsoft/vcpkg) with the `cpprestsdk`, `openssl`, and `boost` packages installed. Set the `VCPKG_ROOT` environment variable to your vcpkg installation path before building.
 
 ### 🌐 Web
 
 ```sh
 flutter run -d chrome --web-port 3000 --web-renderer html
 ```
+
 
 ## Issue Reporting
 
