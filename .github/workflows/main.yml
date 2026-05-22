@@ -34,7 +34,7 @@ jobs:
               uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
 
             - name: Install Flutter
-              uses: subosito/flutter-action@2783a3f08e1baf891508463f8c6653c258246225
+              uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2
               with:
                   flutter-version: ${{ env.flutter }}
                   channel: stable
@@ -58,7 +58,7 @@ jobs:
               uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
 
             - name: Install Flutter
-              uses: subosito/flutter-action@2783a3f08e1baf891508463f8c6653c258246225
+              uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2
               with:
                   flutter-version: ${{ env.flutter }}
                   channel: stable
