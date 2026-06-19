@@ -31,7 +31,7 @@ jobs:
 
         steps:
             - name: Checkout
-              uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
+              uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
 
             - name: Install Flutter
               uses: subosito/flutter-action@2783a3f08e1baf891508463f8c6653c258246225
@@ -55,7 +55,7 @@ jobs:
 
         steps:
             - name: Checkout
-              uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
+              uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
 
             - name: Install Flutter
               uses: subosito/flutter-action@2783a3f08e1baf891508463f8c6653c258246225
@@ -90,7 +90,7 @@ jobs:
 
         steps:
             - name: Checkout
-              uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
+              uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
 
             - name: Set up environment
               uses: ./.github/actions/setup-darwin
@@ -125,7 +125,7 @@ jobs:
 
         steps:
             - name: Checkout
-              uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
+              uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
 
             - name: Set up environment
               uses: ./.github/actions/setup-darwin
